@@ -1,0 +1,209 @@
+import React, { Component } from 'react';
+import jwt_decode from 'jwt-decode';
+import { connect } from "react-redux";
+import * as actions from "../store/actions/auth.action";
+
+class Profile extends Component {
+    constructor() {
+        super()
+        this.state = {
+            first_name: '',
+            last_name: '',
+            email: '',
+            showResults: false,
+            oldPassword: '',
+            newPassword: '',
+            confirmPassword: '',
+            changePasswordError: false,
+            Error:false,
+            errorName:"",
+            matchPasswordError:"",
+            fisrtName: '',
+            lastName: ''
+        }
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.changePassword = this.changePassword.bind(this);
+        this.errorMessageReset = this.errorMessageReset.bind(this)
+    }
+
+    onChange (e) {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+
+    errorMessageReset = () => {
+        this.setState({
+            errorName: false,
+            matchPasswordError: false
+        })
+    }
+
+    onSubmit (e) {
+        e.preventDefault()
+        let password = localStorage.getItem("password");
+        if(this.state.oldPassword === "" || this.state.oldPassword !== password){
+            this.setState({
+                Error: true,
+                errorName: "Please enter a valid data"
+            })
+        }
+
+        if(this.state.confirmPassword !== this.state.newPassword){
+            this.setState({
+                Error: true,
+                matchPasswordError: "Confirm password can't be match with new password"
+            })
+        }
+
+        const data = {
+            email: this.state.email,
+            oldPassword: this.state.oldPassword,
+            confirmPassword: this.state.confirmPassword,
+        }
+        this.props.onAuth(data);
+        localStorage.removeItem('password')
+    }
+
+    changePassword = () => {
+        this.setState({ 
+            showResults: true 
+        });
+    }
+
+    componentDidMount () {
+        const token = localStorage.usertoken
+        if(token === undefined) {
+            this.props.history.push(`/profile-error`);
+        }
+        const decoded = jwt_decode(token)
+        let first_name = decoded.first_name
+        let fisrtName = first_name.toLowerCase()
+
+        let last_name = decoded.last_name
+        let lastName = last_name.toLowerCase()
+       
+        this.setState({
+            id: decoded.id,
+            first_name: decoded.first_name,
+            last_name: decoded.last_name,
+            email: decoded.email,
+            userFirstName : fisrtName,
+            userLastName : lastName
+        })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        
+        if (nextProps.message !== null) {
+          this.setState({
+            showResults: false 
+          })
+        }
+    }
+
+    render () {
+
+        let message = null;
+            if (this.props.changePasswordError && this.state.changePasswordError) {
+            message = <p>{this.props.changePasswordError.message}</p>;
+        }
+
+        const updatePassword = (
+            <React.Fragment>
+                <form>
+                    <div className="row">
+                        <div className="col">
+                            <input type="password" name="oldPassword" className="form-control" value={this.state.oldPassword} onClick={this.errorMessageReset} onChange={this.onChange} placeholder="Old password" />
+                            {this.state.errorName !== "" ? (
+                            <span className="errorMsg"><br />
+                                {this.state.errorName}
+                            </span>
+                            ) : null}
+                        </div>
+                        <div className="col">
+                            <input type="password" name="newPassword" className="form-control" value={this.state.newPassword} onClick={this.errorMessageReset} onChange={this.onChange} placeholder="New password" />
+                        </div>
+                        <div className="col">
+                            <input type="password" name="confirmPassword" className="form-control" value={this.state.confirmPassword} onClick={this.errorMessageReset} onChange={this.onChange} placeholder="Confirm password" />
+                            {this.state.matchPasswordError !== "" ? (
+                            <span className="errorMsg"><br />
+                                {this.state.matchPasswordError}
+                            </span>
+                            ) : null}
+                        </div>
+                        <button type="submit" onClick={this.onSubmit} className="btn btn-dark">Reset</button>
+                    </div>
+                </form>
+            </React.Fragment>
+        )
+
+        const changePasswordBtn = (
+            <button type="button" onClick={this.changePassword} className="btn btn-dark">Change password</button>
+        )
+
+        return (
+            <div className="container">
+                <div className="jumbotron mt-5">
+                {this.props.message !== null ? <div className="alert alert-success alert-dismissible">
+                    <a className="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Success!</strong> {this.props.message} </div>: null}
+                    <div className="col-sm-8 mx-auto">
+                        <h1 className="text-center">PROFILE</h1>
+                    </div>
+                    {message ? (
+                    <span className="errorMsg"><br />
+                        {message}
+                    </span>
+                    ) : null}
+                    <table className="table col-md-6 mx-auto">
+                        <thead>
+                            <tr>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{this.state.first_name}</td>
+                                <td>{this.state.last_name}</td>
+                                <td>{this.state.email}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div className="row">
+                        <div className="text-left col-sm-6">
+                            <a href={`/add-blog/${this.state.userFirstName+'-'+this.state.userLastName}`} type="button" onClick={this.changePassword} className="btn btn-success">Post your blog</a>
+                        </div>
+                        <div className="text-right col-sm-6">
+                            { this.state.showResults ? updatePassword : changePasswordBtn }
+                        </div>
+                    </div>
+                </div>
+                <div className="top"></div>
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+      token: state.auth.token,
+      loading: state.auth.loading,
+      error: state.auth.error,
+      data: state.auth.data,
+      changePasswordError: state.auth.changePasswordError,
+      message: state.auth.message
+    };
+};
+  
+const mapDispatchToProps = dispatch => {
+    return {
+      onAuth: (data) => dispatch(actions.authChangePassword(data))
+    };
+};
+  
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Profile);

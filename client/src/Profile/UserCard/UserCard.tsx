@@ -1,6 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class UserCard extends Component {
+interface IProps {
+  bgImage?: any
+  avatar?: string
+  name?: string
+  description?: any
+  userName? : string
+  socials?: any
+}
+
+class UserCard extends React.Component<IProps>{
+  constructor(props: IProps){
+    super(props);
+  }
+
   render() {
     return (
       <div className="card card-user">

@@ -1,5 +1,5 @@
-import Dashboard from "./views/Dashboard";
-import UserProfile from "./views/UserProfile";
+import Dashboard from "./Profile/views/Dashboard";
+import UserProfile from "./Profile/views/UserProfile";
 
 const dashboardRoutes = [
   {

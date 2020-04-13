@@ -7,22 +7,18 @@ interface IProps {
   rest?: any
   exact?: any
   path? : any
-  permissionCheck? : boolean
-  permission: string
 }
 
-const PrivateRoute: React.FC<IProps> = ({ auth, component: Component, permissionCheck,...rest }) => {
+const PrivateRoute: React.FC<IProps> = ({ auth, component: Component,...rest }) => {
   return (
       <Route
         {...rest}
         render={props =>
-          (auth || localStorage.getItem('token')) &&
-           (permissionCheck === true)? (
+          (auth || localStorage.getItem('token'))? (
             <>
               <Component {...props} />
             </>
-           ) : (auth || localStorage.getItem('token')) &&
-             (permissionCheck === false)? (
+           ) : (auth || localStorage.getItem('token'))? (
             <>
                <Component {...props} />
             </>

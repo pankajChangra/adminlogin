@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./assets/css/animate.min.css";
-import "./assets/css/demo.css";
 import "./assets/css/pe-icon-7-stroke.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
@@ -10,6 +9,7 @@ import { createStore, compose, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import "./css/style.css";
+import "./assets/css/demo.css";
 import combineReducers from "./store/reducers";
 
 declare global {

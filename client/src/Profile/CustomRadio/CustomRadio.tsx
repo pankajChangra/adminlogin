@@ -13,7 +13,6 @@ class CustomRadio extends Component<IProps>{
   }
   render() {
     const { number, label, option, name, ...rest } = this.props;
-
     return (
       <div className="radio">
         <input id={number} name={name} type="radio" value={option} {...rest} />

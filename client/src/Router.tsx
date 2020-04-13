@@ -5,9 +5,9 @@ import Register from './components/account/Register';
 import Login from './components/account/Login';
 import Admin from './components/account/Admin';
 import PrivateRoute from "./middleware/PrivateRoute";
-import Dashboard from "./views/Dashboard"
+import Dashboard from "./Profile/views/Dashboard"
 import { connect } from "react-redux";
-import AdminLayout from "./layouts/Admin";
+import AdminLayout from "./Profile/layouts/Admin";
 
 interface IProps {
     isAuthenticated?: any
@@ -31,8 +31,6 @@ class BaseRouter extends React.Component<IProps>{
                                 auth={this.props.isAuthenticated} 
                                 path={`${process.env.PUBLIC_URL}/dashboard`} 
                                 component = {Dashboard}
-                                permissionCheck={true}
-                                permission="admin"
                                 />
               </Switch>
           </Router>

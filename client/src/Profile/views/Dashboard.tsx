@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import { Card } from "../components/Card/Card";
-// import { Tasks } from "../components/Tasks/Tasks";
-// import TableList from "TableList"
+import { Card } from "../Card/Card";
+import { Tasks } from "../Tasks/Tasks";
+import TableList from "./TableList"
 
 class Dashboard extends Component {
   createLegend(json?: any) {
@@ -18,7 +18,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="content">
-        {/* <TableList /> */}
+        <TableList />
         <div className="fluid">
           <Row>
             <Col md={6}>
@@ -30,7 +30,7 @@ class Dashboard extends Component {
                 content={
                   <div className="table-full-width">
                     <table className="table">
-                      {/* <Tasks /> */}
+                      <Tasks />
                     </table>
                   </div>
                 }

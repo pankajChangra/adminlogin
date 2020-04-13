@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Table } from "react-bootstrap";
-import Card from "../components/Card/Card";
-import { thArray, tdArray } from "../variables/Variables.jsx";
+import Card from "../Card/Card";
+import { thArray, tdArray } from "../variables/Variables";
 
 export default function TableList(){
     return (
