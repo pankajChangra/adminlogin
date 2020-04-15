@@ -36,6 +36,15 @@ class Admin extends Component<IPros, IState>{
         }
     }
 
+    componentDidMount = () => {
+        let adminToken = localStorage.getItem('admin');
+        if(adminToken !== null){
+            this.setState({
+                redirect: true
+            })
+        }
+    }
+
     onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let  updateState:any = {
             [e.target.name] : e.target.value

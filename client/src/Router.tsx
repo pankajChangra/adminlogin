@@ -17,7 +17,6 @@ class BaseRouter extends React.Component<IProps>{
       return (
           <Router>
               <Switch>
-                    {/* <Route path="/admin" render={props => <AdminLayout {...props} />} /> */}
                     <Route exact path="/" component={Layout} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
@@ -25,7 +24,19 @@ class BaseRouter extends React.Component<IProps>{
                     <PrivateRoute 
                         exact 
                         auth={this.props.isAuthenticated} 
+                        path={`/admin/dashboard`} 
+                        component = {AdminLayout}
+                    />
+                    <PrivateRoute 
+                        exact 
+                        auth={this.props.isAuthenticated} 
                         path={`/admin`} 
+                        component = {AdminLayout}
+                    />
+                    <PrivateRoute 
+                        exact 
+                        auth={this.props.isAuthenticated} 
+                        path={`/admin/user`} 
                         component = {AdminLayout}
                     />
               </Switch>
