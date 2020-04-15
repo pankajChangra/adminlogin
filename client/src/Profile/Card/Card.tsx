@@ -16,9 +16,6 @@ interface IProps {
 }
 
 export class Card extends Component<IProps>{
-  constructor(props: IProps){
-    super(props)
-  }
   render() {
     return (
       <div className={"card" + (this.props.plain ? " card-plain" : "")}>

@@ -19,11 +19,11 @@ class Footer extends Component {
                         <h5>Contacts</h5>
                         <dl className="contact-list">
                             <dt>Address:</dt>
-                            <dd>Himachal India</dd>
+                            <dd>Hamirpur Himachal Pradesh India</dd>
                         </dl>
                         <dl className="contact-list">
                             <dt>email:</dt>
-                            <dd><a href="mailto:#">pankaj@gmail.com</a></dd>
+                            <dd><a href="mailto:#">pankajchangra788@gmail.com</a></dd>
                         </dl>
                         <dl className="contact-list">
                             <dt>phones:</dt>

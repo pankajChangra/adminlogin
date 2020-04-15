@@ -14,11 +14,11 @@ const PrivateRoute: React.FC<IProps> = ({ auth, component: Component,...rest }) 
       <Route
         {...rest}
         render={props =>
-          (auth || localStorage.getItem('token'))? (
+          (auth !== false || localStorage.getItem('admin') !== null )? (
             <>
               <Component {...props} />
             </>
-           ) : (auth || localStorage.getItem('token'))? (
+           ) : (auth !== false || localStorage.getItem('admin') !== null )? (
             <>
                <Component {...props} />
             </>

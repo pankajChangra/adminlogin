@@ -207,3 +207,6 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Profile);
+
+
+<Redirect to={`${process.env.PUBLIC_URL}/admin/dashboard`} />;

@@ -84,7 +84,7 @@ class Sidebar extends Component<IProps, IState>{
                       activeClassName="active"
                     >
                       <i className={prop.icon} />
-                      <p>{prop.name}</p>
+                      <span>{prop.name}</span>
                     </NavLink>
                   </li>
                 );

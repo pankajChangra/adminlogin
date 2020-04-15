@@ -18,9 +18,6 @@ const FieldGroup: React.FC<IProps> = ({ label,props }) => {
 }
 
 export class FormInputs extends Component<IProps>{
-  constructor(props: IProps){
-    super(props)
-  }
   render() {
     var row = [];
     for (var i = 0; i < this.props.ncols.length; i++) {

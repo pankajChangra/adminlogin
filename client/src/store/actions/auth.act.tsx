@@ -114,9 +114,8 @@ export const adminLogin = (data: any, action: any) => {
       .adminLoginSerive(data)
       .then(res => {
         if (res.data.status === 200) {
-          const token = res.data.token;
-          localStorage.setItem("token",token);
-          localStorage.setItem("admin","admin");
+          let token = res.data.token;
+          localStorage.setItem("admin",token);
           const expirationDate = new Date(new Date().getTime() + 360 * 60000);
           dispatch(authSuccess(token, action));
           dispatch(checkAuthTimeout(3600));

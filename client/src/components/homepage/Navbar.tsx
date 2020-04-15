@@ -62,9 +62,6 @@ class Navbar extends Component {
 
                     <div className="collapse navbar-collapse" id="navbarCollapse">
                         <div className="navbar-nav">
-                            <a href="/" className="nav-item nav-link active">
-                            Home
-                            </a>
                             {localStorage.usertoken ? userLink : loginRegLink}
                         </div>
                     </div>

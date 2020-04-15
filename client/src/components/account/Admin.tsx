@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/auth.act";
+import { Redirect } from "react-router-dom";
 
 interface IState {
     email: any;
@@ -10,12 +11,14 @@ interface IState {
     validationEmailError: boolean;
     validationPasswordError: boolean;
     validationMessage: string
+    redirect: boolean
 }
 
 interface IPros {
     adminLogin? : any
     regEmail: string
     loginError: any
+    token?: any
 }
 
 class Admin extends Component<IPros, IState>{
@@ -29,6 +32,7 @@ class Admin extends Component<IPros, IState>{
             validationEmailError: false,
             validationPasswordError: false,
             validationMessage: '',
+            redirect: false,
         }
     }
 
@@ -42,6 +46,9 @@ class Admin extends Component<IPros, IState>{
     errorMessageReset = () => {
         this.setState({
             loginError: false,
+            validationEmailError: false,
+            validationPasswordError: false,
+            validationMessage: '',
         })
     }
 
@@ -87,20 +94,30 @@ class Admin extends Component<IPros, IState>{
             }
         }
 
-        if(prevProps.loginError !== this.props.loginError) {
-
+        if(prevProps.token !== this.props.token) {
+            let adminLocal = localStorage.getItem('admin')
+            if(adminLocal !== null) {
+                this.setState({
+                    redirect: true
+                })
+            }
         }
+
     }
     
     render () {
+        let {email,password,validationEmailError, validationPasswordError, validationMessage, redirect} = this.state;
         return (
             <div className="container">
+                {redirect === true ? <Redirect to={`${process.env.PUBLIC_URL}/admin/dashboard`} /> : null}
                 <div className="row">
                     <div className="col-md-6 mt-5 mx-auto">
                         {this.props.regEmail !== null && this.props.regEmail ? <div className="alert alert-success" role="alert">
                             Account successfully created! Please sign-in into your account 
                         </div>: null}
                         {this.props.loginError !== null && this.props.loginError ? <div className="alert alert-danger" role="alert">{this.props.loginError}</div>: null}
+                        {validationEmailError === true || validationPasswordError === true? 
+                        <div className="alert alert-danger" role="alert">{validationMessage}</div> : null}
                         <form noValidate onSubmit={(event:any) => {event.preventDefault(); this.onSubmit()}}>
                             <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
                             <div className="form-group">
@@ -109,7 +126,7 @@ class Admin extends Component<IPros, IState>{
                                     className="form-control"
                                     name="email"
                                     placeholder="Enter Email"
-                                    value={this.state.email}
+                                    value={email}
                                     onClick={this.errorMessageReset}
                                     onChange={this.onChange}
                                 />
@@ -120,7 +137,7 @@ class Admin extends Component<IPros, IState>{
                                     className="form-control"
                                     name="password"
                                     placeholder="Enter Password"
-                                    value={this.state.password}
+                                    value={password}
                                     onClick={this.errorMessageReset}
                                     onChange={this.onChange}
                                 />

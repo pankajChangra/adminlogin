@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "@types/history": "^4.7.5",
     "@types/jest": "^24.9.1",
+    "@types/jwt-decode": "^2.2.1",
     "@types/node": "^12.12.30",
     "@types/react": "^16.9.25",
     "@types/react-bootstrap": "^0.32.20",
@@ -61,5 +62,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "ws": "3.3.2"
+  }
 }

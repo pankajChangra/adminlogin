@@ -10,9 +10,6 @@ interface IProps {
 }
 
 class UserCard extends React.Component<IProps>{
-  constructor(props: IProps){
-    super(props);
-  }
 
   render() {
     return (

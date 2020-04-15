@@ -5,7 +5,6 @@ import Register from './components/account/Register';
 import Login from './components/account/Login';
 import Admin from './components/account/Admin';
 import PrivateRoute from "./middleware/PrivateRoute";
-import Dashboard from "./Profile/views/Dashboard"
 import { connect } from "react-redux";
 import AdminLayout from "./Profile/layouts/Admin";
 
@@ -13,25 +12,22 @@ interface IProps {
     isAuthenticated?: any
 }
 
-class BaseRouter extends React.Component<IProps>{
-    constructor(props: IProps){
-        super(props)
-    }
-
+class BaseRouter extends React.Component<IProps>{    
     render(){
       return (
           <Router>
               <Switch>
-                    <Route path="/admin/dashboard" render={props => <AdminLayout {...props} />} />
+                    {/* <Route path="/admin" render={props => <AdminLayout {...props} />} /> */}
                     <Route exact path="/" component={Layout} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/admin-login" component={Admin} />
-                    <PrivateRoute exact 
-                                auth={this.props.isAuthenticated} 
-                                path={`${process.env.PUBLIC_URL}/dashboard`} 
-                                component = {Dashboard}
-                                />
+                    <PrivateRoute 
+                        exact 
+                        auth={this.props.isAuthenticated} 
+                        path={`/admin`} 
+                        component = {AdminLayout}
+                    />
               </Switch>
           </Router>
         )

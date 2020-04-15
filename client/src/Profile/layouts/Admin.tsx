@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import AdminNavbar from "../Navbars/AdminNavbar";
 import Footer from "../Footer/Footer";
 import Sidebar from "../Sidebar/Sidebar";
-import routes from "../../routes.js";
+import routes from "../../route";
 import image from "../../assets/img/sidebar-3.jpg";
 
 interface IState {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navbar } from "react-bootstrap";
+import { Row, Col, Navbar } from "react-bootstrap";
 import AdminNavbarLinks from "./AdminNavbarLinks";
 
 interface IProps {
@@ -35,17 +35,21 @@ class Header extends Component<IProps, IState>{
   }
   render() {
     return (
-      <Navbar className="fluid">
-        <Navbar>
-          <Navbar.Brand>
-            <a href="#pablo">{this.props.brandText}</a>
-          </Navbar.Brand>
-          <Navbar.Toggle onClick={this.mobileSidebarToggle} />
-        </Navbar>
-        <Navbar.Collapse>
-          <AdminNavbarLinks />
-        </Navbar.Collapse>
-      </Navbar>
+      <React.Fragment>
+        <Row>
+          <Col md={6}>
+            <Navbar className="fluid">
+              <Navbar.Brand>
+                <a href="#pablo">{this.props.brandText}</a>
+              </Navbar.Brand>
+              <Navbar.Toggle onClick={this.mobileSidebarToggle} />
+            </Navbar>
+          </Col>
+          <Col md={6}>
+            <AdminNavbarLinks />
+          </Col>
+        </Row>
+      </React.Fragment>
     );
   }
 }
