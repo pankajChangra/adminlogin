@@ -97,3 +97,23 @@ module.exports.adminLoginService = (request) =>{
         }
     })
 }
+
+module.exports.userDeatilService = () =>{
+    return new Promise(async(resolve, reject) => {
+        
+        let userdetail = await users.findAll({
+            attributes: ['id', 'first_name', 'last_name', 'email']
+        })
+
+        if(userdetail){
+                return resolve({ status: 200, userdetail})
+        } else {
+            const err = {
+                status: 404,
+                message: "Record not found"
+            }           
+            reject (err)
+        }
+
+    })
+}

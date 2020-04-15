@@ -1,5 +1,6 @@
 import Dashboard from "./Profile/views/Dashboard";
 import UserProfile from "./Profile/views/UserProfile";
+import { userDetailFail } from "./store/actions/user.act";
 
 const dashboardRoutes = [
   {
@@ -14,7 +15,8 @@ const dashboardRoutes = [
     name: "Users List",
     icon: "pe-7s-user",
     component: UserProfile,
-    layout: "/admin"
+    layout: "/admin",
+    userDetail: "userdeatil"
   },
 ];
 

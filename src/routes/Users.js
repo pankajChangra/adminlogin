@@ -12,7 +12,7 @@ module.exports = [
         handler: userController.register,
         options:{
             auth : false,
-            description: 'To authenticate admin user.',
+            description: 'User registration.',
             notes: 'register api',
             tags: ['api', 'User'], 
             validate:{
@@ -29,7 +29,7 @@ module.exports = [
         handler: userController.login,
         options:{
             auth : false,
-            description: 'To authenticate admin user.',
+            description: 'Normal user login.',
             notes: 'register api',
             tags: ['api', 'User'], 
             validate:{
@@ -46,7 +46,7 @@ module.exports = [
         handler: userController.adminLogin,
         options:{
             auth : false,
-            description: 'To authenticate admin user.',
+            description: 'admin login',
             notes: 'register api',
             tags: ['api', 'User'], 
             validate:{
@@ -54,6 +54,18 @@ module.exports = [
                     email: Joi.string().email().required().label("Not a valid email!"),
                 }).unknown(true)
             }
+        }
+    },
+
+    {
+        method: 'GET',
+        path: '/users-detail',
+        handler: userController.usersDetial,
+        options:{
+            auth : true,
+            description: 'To authenticate admin while fetching user deatil.',
+            notes: 'register api',
+            tags: ['api', 'User'],
         }
     }
 ]

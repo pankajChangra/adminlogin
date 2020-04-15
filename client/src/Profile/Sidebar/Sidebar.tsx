@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks";
 import logo from "../../assets/img/reactlogo.png";
+import * as actions from  "../../store/actions/user.act"
+import { connect } from "react-redux";
 
 interface IProps {
   location?: any
@@ -9,6 +11,7 @@ interface IProps {
   color?: any
   hasImage? : any
   routes? : any
+  userDetailSignup?: any
 }
 
 interface IState {
@@ -22,16 +25,27 @@ class Sidebar extends Component<IProps, IState>{
       width: window.innerWidth
     };
   }
+  
   activeRoute = (routeName?: any) => {
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   }
+  
   updateDimensions = () => {
     this.setState({ width: window.innerWidth });
   }
+  
   componentDidMount = () => {
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions.bind(this));
   }
+  
+  handleClick = (event:any,prop: any) => {
+    event?.preventDefault()
+    if(prop.userDetail === 'userdeatil') {
+      this.props.userDetailSignup();
+    }
+  }
+
   render() {
     const sidebarBackground = {
       backgroundImage: "url(" + this.props.image + ")"
@@ -84,7 +98,7 @@ class Sidebar extends Component<IProps, IState>{
                       activeClassName="active"
                     >
                       <i className={prop.icon} />
-                      <span>{prop.name}</span>
+                      <span onClick={(e)=>this.handleClick(e,prop)}>{prop.name}</span>
                     </NavLink>
                   </li>
                 );
@@ -97,4 +111,13 @@ class Sidebar extends Component<IProps, IState>{
   }
 }
 
-export default Sidebar;
+const mapDispatchToProps = (dispatch:any) => {
+  return {
+    userDetailSignup: () => dispatch(actions.userDetailSignup())
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+  )(Sidebar);

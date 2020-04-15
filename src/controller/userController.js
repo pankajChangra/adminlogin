@@ -43,3 +43,12 @@ module.exports.adminLogin = async(request, h) => {
         return {err}
     }
 }
+
+module.exports.usersDetial = async() => {
+    try{
+        let fetchUsers = await UserService.userDeatilService();
+        return fetchUsers
+    } catch(err) {
+        return {err}
+    }
+}
